@@ -106,7 +106,7 @@ if model_type == 'ann':
 
 # =========================================================
 elif model_type == 'rdf':
-    model = RandomForestClassifier(n_estimators=100)
+    model = RandomForestClassifier(n_estimators=param['n_estimators'])
 
     model.fit(X_train, y_train)
 
