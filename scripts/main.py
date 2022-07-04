@@ -95,7 +95,7 @@ if model_type == 'ann':
 
     info = {
         "test_score" : print_score(y_test, predictions, train=False),
-        "f1" : f1_score(predictions, y_test),
+        "f1" : f1_score(y_test, predictions),
         "roc_auc_score" : roc_auc_score(predictions, y_test)
     }
 
@@ -116,7 +116,7 @@ elif model_type == 'rdf':
     info = {
         "train_score" : print_score(y_train, y_train_pred, train=True),
         "test_score" : print_score(y_test, y_test_pred, train=False),
-        "f1" : f1_score(y_test_pred, y_test),
+        "f1" : f1_score(y_test, y_test_pred),
     }
 
     print_info(info)
@@ -140,7 +140,7 @@ elif model_type == "lgr":
     info = {
         "train_score" : print_score(y_train, y_train_pred, train=True),
         "test_score" : print_score(y_test, y_test_pred, train=False),
-        "f1" : f1_score(y_test_pred, y_test),
+        "f1" : f1_score(y_test, y_test_pred),
         "roc_auc_score" : roc_auc_score(y_test_pred, y_test)
     }
     
