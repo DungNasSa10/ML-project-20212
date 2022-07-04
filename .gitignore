@@ -1,3 +1,11 @@
+#
+.tmp.drivedownload
+.tmp.driveupload
+data
+desktop.ini
+note.txt
+checkpoints
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
