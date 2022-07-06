@@ -2,7 +2,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout
 
 
-def get_ann():
+def get_ann() -> Sequential:
     model = Sequential()
     model.add(Dense(units=78,activation='relu'))
     model.add(Dropout(0.1))
@@ -19,6 +19,3 @@ def get_ann():
     model.compile(loss='binary_crossentropy', optimizer='adam')
     
     return model
-
-
-

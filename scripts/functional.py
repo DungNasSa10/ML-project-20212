@@ -27,3 +27,10 @@ def print_score(true, pred, train=True):
                f"Confusion Matrix: \n {confusion_matrix(true, pred)}\n")
                
     return res
+
+
+def print_dict(info: dict):
+    print()
+    for k, v in info.items():
+        print(k, "=", v)
+    print()
