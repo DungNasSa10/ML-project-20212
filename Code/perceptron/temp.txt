@@ -1,0 +1,285 @@
+\documentclass{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[a4paper,top=2cm,bottom=2cm,left=1.75cm,right=1.75cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{multirow}
+
+\title{Your Paper}
+\author{You}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+
+Lending between individuals is expanding all across the world. The program establishes a connection between those in need of loans and those who can offer them. According to the degree of risk where the borrower cannot repay the loan, each loan will be given a grade ranging from A to G. The borrower's assessments, including credit histories, income, and other factors, will be included in the grading process. Additionally, there are 5 sub-grades inside each grade. The safest loan is A1, with a rate of about 6\%. If the level of riskiness increases, the interest rate increases. In particular, the G5 offers a staggering interest rate of 26.06 percent. Investors adore this model since, despite the high-interest rate, lending a moderate amount of money is possible, and the process isn't as hazy and confusing as investing money into real estate or stocks. According to Lending Club, the borrowing community has received roughly 6 billion USD in funding, and the company has made a profit of about 600 million USD. The question here is: “Can we predict if a borrower would default or not in each specific situation?”. If the company can properly address this query, it will be able to increase profit and prevent losses. We decided to develop a variety of machine learning models using the abundant data provided, with the goal of forecasting defaulters by identifying them as 0 if they are unable to pay the loan or 1 if they are able to. The information was obtained from \href{https://www.kaggle.com/datasets/wordsforthewise/lending-club}{here}. Following a rigorous exploration, analysis, and preprocessing process, our data frame has more than 1.3 million tuples, each of which contains 78 features. We run several algorithms, evaluate them, and draw some conclusions. Observe the results, a conclusion has been made that <insert nhan xet kq vao day>
+
+\end{abstract}
+
+\section{Introduction}
+
+Identifying defaulters is a crucial step in any lending procedure. This action assists both the business and lenders in preventing financial loss. Given the enormous amount of data, this problem contains, it ideally suits the settings of a machine learning classifier. Data exploration and preprocessing are done early on in the task. Plots are created to visualize the relationship and influence of the features after removing columns with an excessive amount of missing data. Leaky data and outlier points are also found and eliminated from the data frame. We ran machine learning models on the elite data set after gaining a general understanding of the data. We use a total of 9 <or more vi minh ghi ca failed attempts> algorithms in the second phase of the solve, including the following: Logistic Regression, KNN, Decision Tree, Support Vector Machine, AdaBoost, XGBoost, Random Forest, Perceptron and MLP. Each of these algorithms was selected for a valid reason that could work with the problem's context. Each algorithm will be added to a pipeline that also incorporates additional methods for enhancing performance, such as scaling and oversampling. Additionally, hyperparameter-tuning will be offered to enable a detailed comparison between an algorithm that has been tuned and one that has not. The results are then compared, and conclusions are produced to reinforce the initial attempts and identify good models in terms of accuracy and timeliness.
+
+\section{Problems Overview}
+
+\subsection{Problems approach}
+
+\subsection{Evaluation metrics}
+
+Since the problem is a binary problem with imbalance target data, we chose F-Measure and AUC  as the two performance metrics to evaluate our model. Besides, we also want to focus on reducing wrong predictions about non-paid applicants, thus, F0.5 - Measure which is an abstraction of fBeta-Measure and Precision-Recall AUC were our final evaluation metrics. F0.5 - Measure helps us concentrate on the false positive predicting, meanwhile, Precision - Recall AUC compare false positives to true positives rather than true negatives and thus won't be affected by the relative imbalance.
+
+\section{Related work}
+
+\section{EDA \& FE}
+
+\subsection{Datatset Overview}
+
+We worked with a public dataset in Kaggle [6]. There are two different datasets: accepted\_2007\_to\_2018Q4.csv.gz and rejected\_2007\_to\_2018Q4.csv.gz. While the first set contains information about loans which were accepted from 2007 to 2018, the second set stores data about rejected offers in similar time periods. In our problem, we only consider the first one because the second doesn’t provide useful information (all these applications don't satisfy basic conditions to gain a loan).
+
+The original dataset has over 1.3 million rows and 151 columns. We filtered out loans whose statuses are not yet final, such as “Current” and “Late (less than 30 days)”. We treat “Paid Off” as our positive label, and “Default” or “Charged Off” as negative. This leaves us with a dataset of size 745,529, with 19\% negative and 81\% positive examples. We split the data using a random (0.7, 0.3) split into training and test sets
+
+\subsection{EDA \& Feature Engineering}
+The original data set has over 1.3 million rows and 151 columns. We filtered out loans whose statuses are not yet final, such as “Current” and “Late (31-120 days)”. We treat “Fully Paid” as our positive label, and “Default” as negative. 
+
+The first important step is to figure out which feature is leaking from the future, i.e. features can only be collected after the loan offer is accepted. If we don’t remove these features, it can lead to over-optimistic classification results but our model will be not useful when applying it to real life. By studying many resources [2], we found and removed some leakage features such as 'last\_pymnt\_d', 'last\_fico\_range\_low' and 'last\_fico\_range\_high'. 
+
+Considering continuous variables, we found and removed constant features (‘out\_prncp’, ‘out\_prncp\_inv’ and ‘policy\_code’) and highly correlated features (‘fico\_range\_low’ and ‘fico\_range\_high’) by drawing correlation heat map between them.
+
+After that, to deal with categorical variables, we decided to remove or make dummies variables based on their unique values. If they are constant variables or have too many unique values, we will drop these columns, otherwise, we will get dummy variables from them. For more details about which feature is keep or removed, please refer [3]. 
+
+We then removed rows which have missing values in remaining features (they account for only less than 0.1\% of the hold data set).  Finally, we get the processed data set of size  (1343380, 79), with 19\% negative and 80\% positive examples. We split data using a random (0.8, 0.2) split into training and test sets.
+
+\section{Models}
+
+\subsection{Classical Models}
+
+\subsubsection*{Logistic Regression}
+
+\subsubsection*{Perceptron}
+
+The perceptron is the building block of artificial neural networks, it is a simplified model of the biological neurons in our brain. A perceptron is the simplest neural network, one that is comprised of just one neuron.
+
+The perceptron is a simplified model of the real neuron that attempts to imitate it by the following process: it takes the input signals, computes a weighted sum of those inputs, then passes it through a threshold function and outputs the result.
+
+One major advantage of the perceptron model is, it can deal with real-valued inputs (which makes it more useful and generalized) and boolean values. However, the output of a perceptron can only be a binary number (0 or 1) due to the hard limit transfer function. Moreover, perceptron can only be used to classify the linearly separable sets of input vectors. If input vectors are non-linear, it is not easy to classify them properly.
+
+\hspace*{-1cm}
+\begin{center}
+\makebox[0cm]{
+\begin{tabular}{|p{2.25cm}|p{1.75cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|} 
+    \hline
+    Perceptron & Parameters & mean train score & std train score & mean test score & std test score & mean fit time & std get time & f0.5 score \\ [0.5ex]
+    \hline
+    Base &  & 0.874516 & 0.036919 & 0.874598 & 0.037038 & 13.454261 & 0.521713 & 0.846232 \\ 
+    \hline
+    MinMaxScale &  & 0.887178 & 0.019047 & 0.887251 & 0.019246 & 13.86338 & 0.106149 & 0.836828\\
+    \hline
+    MinMaxScale + SMOTE &  & 0.897841 & 0.013538 & 0.897772 & 0.01365 & 527.701653 & 17.297408 & 0.899689 \\
+    \hline
+    Tuning MinMaxScale & perceptron penalty=l1 & 0.894408 & 0.031461 & 0.894439 & 0.031268 & 6.368097 & 0.016113 & 0.833671 \\  
+    \hline
+    Tuning MinMaxScale + SMOTE & perceptron penalty=l1, smote sampling strategy=0.8 &  0.914760 & 0.005980 & 0.915667 & 0.006923 & 12.414894 & 0.674265 & 0.916345 \\ [1ex]
+    \hline
+\end{tabular}
+}
+\end{center}
+\hspace*{-1cm}
+
+\subsubsection*{SVM}
+
+\subsubsection*{Decision Tree}
+
+\hspace*{-1cm}
+\begin{center}
+\makebox[0cm]{
+\begin{tabular}{|p{2.25cm}|p{1.75cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|} 
+    \hline
+    Decision Tree & Parameters & mean train score & std train score & mean test score & std test score & mean fit time & std get time & f0.5 score & pr auc score \\ [0.5ex]
+    \hline
+    Base &  & 1.0 & 0.0 & 0.927076 & 0.000584 & 29.713296 & 1.736299 & 0.929246 & 0.957652 \\ 
+    \hline
+    MinMaxScale &  & 1.0 & 0.0 & 0.927115 & 0.000697 & 28.542332 & 1.72978 & 0.929127 & 0.957564 \\
+    \hline
+    MinMaxScale + SMOTE &  & 1.0 & 0.0 & 0.927115 & 0.000697 & 28.542332 & 1.72978 & 0.918826 & 0.951853 \\
+    \hline
+    Tuning MinMaxScale &  & 788 & 6344 \\  
+    \hline
+    Tuning MinMaxScale + SMOTE &  & 11.0 & 0.0 & 0.939233 & 0.000545 & 0.929216 & 0.000783 & 22.88438 & 0.365039 \\ [1ex]
+    \hline
+\end{tabular}
+}
+\end{center}
+\hspace*{-1cm}
+
+\subsection{Ensemble Models}
+
+\subsubsection*{Random forest}
+
+\subsubsection*{XGBoost}
+
+\subsubsection*{AdaBoost}
+
+\subsection{Deep Learning Models}
+
+\subsubsection*{Multi Layer Perceptron}
+
+The Multilayer Perceptron was developed to tackle the limitation of Perceptron, which has no ability to handle non-linear inputs and outputs. A Multilayer Perceptron has input and output layers, and one or more hidden layers with many neurons stacked together. Each layer is feeding the next one with the result of their computation, their internal representation of the data. This goes all the way through the hidden layers to the output layer. And while in the Perceptron the neuron must have an activation function that imposes a threshold, like ReLU or sigmoid, neurons in a Multilayer Perceptron can use any arbitrary activation function.
+
+\hspace*{-1cm}
+\begin{center}
+\makebox[0cm]{
+\begin{tabular}{|p{2.25cm}|p{1.75cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|p{1.5cm}|} 
+    \hline
+    Decision Tree & Parameters & mean train score & std train score & mean test score & std test score & mean fit time & std get time & f0.5 score & pr auc score \\ [0.5ex]
+    \hline
+    Base &  & 1.0 & 0.0 & 0.927076 & 0.000584 & 29.713296 & 1.736299 & 0.929246 & 0.957652 \\ 
+    \hline
+    MinMaxScale &  & 1.0 & 0.0 & 0.927115 & 0.000697 & 28.542332 & 1.72978 & 0.929127 & 0.957564 \\
+    \hline
+    MinMaxScale + SMOTE &  & 1.0 & 0.0 & 0.927115 & 0.000697 & 28.542332 & 1.72978 & 0.918826 & 0.951853 \\
+    \hline
+    MinMaxScale &  & 788 & 6344 \\  
+    \hline
+    MinMaxScale + SMOTE &  & 11.0 & 0.0 & 0.939233 & 0.000545 & 0.929216 & 0.000783 & 22.88438 & 0.365039 \\ [1ex]
+    \hline
+\end{tabular}
+}
+\end{center}
+\hspace*{-1cm}
+
+\section{Conclusion and future work}
+
+\section{Some examples to get started}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{How to create Sections and Subsections}
+
+Simply use the section and subsection commands, as in this example document! With Overleaf, all the formatting and numbering is handled automatically according to the template you've chosen. If you're using Rich Text mode, you can also create new section and subsections via the buttons in the editor toolbar.
+
+\subsection{How to include Figures}
+
+First you have to upload the image file from your computer using the upload link in the file-tree menu. Then use the includegraphics command to include it in your document. Use the figure environment and the caption command to add a number and a caption to your figure. See the code for Figure \ref{fig:frog} in this section for an example.
+
+Note that your figure will automatically be placed in the most appropriate place for it, given the surrounding text and taking into account other figures or tables that may be close by. You can find out more about adding images to your documents in this help article on \href{https://www.overleaf.com/learn/how-to/Including_images_on_Overleaf}{including images on Overleaf}.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.3\textwidth]{frog.jpg}
+\caption{\label{fig:frog}This frog was uploaded via the file-tree menu.}
+\end{figure}
+
+\subsection{How to add Tables}
+
+Use the table and tabular environments for basic tables --- see Table~\ref{tab:widgets}, for example. For more information, please see this help article on \href{https://www.overleaf.com/learn/latex/tables}{tables}. 
+
+\begin{table}
+\centering
+\begin{tabular}{l|r}
+Item & Quantity \\\hline
+Widgets & 42 \\
+Gadgets & 13
+\end{tabular}
+\caption{\label{tab:widgets}An example table.}
+\end{table}
+
+\subsection{How to add Comments and Track Changes}
+
+Comments can be added to your project by highlighting some text and clicking ``Add comment'' in the top right of the editor pane. To view existing comments, click on the Review menu in the toolbar above. To reply to a comment, click on the Reply button in the lower right corner of the comment. You can close the Review pane by clicking its name on the toolbar when you're done reviewing for the time being.
+
+Track changes are available on all our \href{https://www.overleaf.com/user/subscription/plans}{premium plans}, and can be toggled on or off using the option at the top of the Review pane. Track changes allow you to keep track of every change made to the document, along with the person making the change. 
+
+\subsection{How to add Lists}
+
+You can make lists with automatic numbering \dots
+
+\begin{enumerate}
+\item Like this,
+\item and like this.
+\end{enumerate}
+\dots or bullet points \dots
+\begin{itemize}
+\item Like this,
+\item and like this.
+\end{itemize}
+
+\subsection{How to write Mathematics}
+
+\LaTeX{} is great at typesetting mathematics. Let $X_1, X_2, \ldots, X_n$ be a sequence of independent and identically distributed random variables with $\text{E}[X_i] = \mu$ and $\text{Var}[X_i] = \sigma^2 < \infty$, and let
+\[S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
+      = \frac{1}{n}\sum_{i}^{n} X_i\]
+denote their mean. Then as $n$ approaches infinity, the random variables $\sqrt{n}(S_n - \mu)$ converge in distribution to a normal $\mathcal{N}(0, \sigma^2)$.
+
+\subsection{How to change the margins and paper size}
+
+Usually the template you're using will have the page margins and paper size set correctly for that use-case. For example, if you're using a journal article template provided by the journal publisher, that template will be formatted according to their requirements. In these cases, it's best not to alter the margins directly.
+
+If however you're using a more general template, such as this one, and would like to alter the margins, a common way to do so is via the geometry package. You can find the geometry package loaded in the preamble at the top of this example file, and if you'd like to learn more about how to adjust the settings, please visit this help article on \href{https://www.overleaf.com/learn/latex/page_size_and_margins}{page size and margins}.
+
+\subsection{How to change the document language and spell check settings}
+
+Overleaf supports many different languages, including multiple different languages within one document. 
+
+To configure the document language, simply edit the option provided to the babel package in the preamble at the top of this example project. To learn more about the different options, please visit this help article on \href{https://www.overleaf.com/learn/latex/International_language_support}{international language support}.
+
+To change the spell check language, simply open the Overleaf menu at the top left of the editor window, scroll down to the spell check setting, and adjust accordingly.
+
+\subsection{How to add Citations and a References List}
+
+You can simply upload a \verb|.bib| file containing your BibTeX entries, created with a tool such as JabRef. You can then cite entries from it, like this: \cite{greenwade93}. Just remember to specify a bibliography style, as well as the filename of the \verb|.bib|. You can find a \href{https://www.overleaf.com/help/97-how-to-include-a-bibliography-using-bibtex}{video tutorial here} to learn more about BibTeX.
+
+If you have an \href{https://www.overleaf.com/user/subscription/plans}{upgraded account}, you can also import your Mendeley or Zotero library directly as a \verb|.bib| file, via the upload menu in the file-tree.
+
+\subsection{Good luck!}
+
+We hope you find Overleaf useful, and do take a look at our \href{https://www.overleaf.com/learn}{help library} for more tutorials and user guides! Please also let us know if you have any feedback using the Contact Us link at the bottom of the Overleaf menu --- or use the contact form at \url{https://www.overleaf.com/contact}.
+
+\bibliographystyle{alpha}
+\bibliography{sample}
+
+\end{document}
