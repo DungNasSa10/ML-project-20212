@@ -1,3 +1,4 @@
+import pickle as pkl
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -143,9 +144,10 @@ def plot_learning_curve(
     return plt
 
 
-param_grid = {**mlp_param_grid}
+param_grid = {}
 
 pipe = Pipeline(steps=[('minmax', MinMaxScaler()),
+                       ('smote', SMOTE(sampling_strategy=1.0, random_state=42)),
                        ('mlp',
                         MLPClassifier(activation='logistic',
                                       early_stopping=True,
@@ -156,8 +158,7 @@ pipe = Pipeline(steps=[('minmax', MinMaxScaler()),
 
 pipe.fit(X_train, y_train)
 
-import pickle as pkl
-with open("mlp_model.pkl", "wb") as f:
+with open("mlp_minmax_smote_model.pkl", "wb") as f:
     pkl.dump(pipe, f)
 
 y_pred = pipe.predict(X_test)
@@ -165,20 +166,20 @@ y_pred = pipe.predict(X_test)
 print(classification_report(y_test, y_pred))
 print(confusion_matrix(y_test, y_pred))
 
-# f_onehalf_score = fbeta_score(y_test, y_pred, beta=0.5)
-# print('f0.5_score=', f_onehalf_score)
+f_onehalf_score = fbeta_score(y_test, y_pred, beta=0.5)
+print('f0.5_score=', f_onehalf_score)
 
-# name = "Tuning MinMaxScaler MLP"
+name = "MinMaxScaler SMOTE MLP"
 
-# try:
-#     y_score = pipe.predict_proba(X_test)[:, 1]
-#     # calculate precision and recall for each threshold
-#     precision, recall, threshold = precision_recall_curve(y_test, y_score)
-#     # calculate scores
-#     pr_auc = auc(recall, precision)
-#     print('pr_auc_score=', pr_auc)
-# except:
-#     pass
+try:
+    y_score = pipe.predict_proba(X_test)[:, 1]
+    # calculate precision and recall for each threshold
+    precision, recall, threshold = precision_recall_curve(y_test, y_score)
+    # calculate scores
+    pr_auc = auc(recall, precision)
+    print('pr_auc_score=', pr_auc)
+except:
+    pass
 
-# plot_learning_curve(pipe, name, X_train, y_train, cv=cv, n_jobs=-1)
-# plt.savefig("mlp_minmax_tuning.png")
+plot_learning_curve(pipe, name, X_train, y_train, cv=cv, n_jobs=-1)
+plt.savefig("mlp_minmax_smote.png")
