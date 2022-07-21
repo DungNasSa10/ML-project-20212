@@ -156,7 +156,14 @@ pipe = Pipeline(steps=[('minmax', MinMaxScaler()),
 
 pipe.fit(X_train, y_train)
 
+import pickle as pkl
+with open("mlp_model.pkl", "wb") as f:
+    pkl.dump(pipe, f)
+
 y_pred = pipe.predict(X_test)
+
+print(classification_report(y_test, y_pred))
+print(confusion_matrix(y_test, y_pred))
 
 f_onehalf_score = fbeta_score(y_test, y_pred, beta=0.5)
 print('f0.5_score=', f_onehalf_score)
