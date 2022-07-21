@@ -156,6 +156,10 @@ pipe = Pipeline(steps=[('minmax', MinMaxScaler()),
 
 pipe.fit(X_train, y_train)
 
+import pickle as pkl
+with open("mlp_model.pkl", "wb") as f:
+    pkl.dump(pipe, f)
+
 y_pred = pipe.predict(X_test)
 
 f_onehalf_score = fbeta_score(y_test, y_pred, beta=0.5)
