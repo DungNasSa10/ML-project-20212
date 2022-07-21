@@ -21,7 +21,7 @@ from sklearn.model_selection import GridSearchCV, HalvingGridSearchCV, train_tes
 from sklearn.metrics import classification_report, fbeta_score, confusion_matrix, precision_recall_curve, auc, make_scorer
 
 # %%
-accepted_loans = pd.read_csv('./data/accepted.csv')
+accepted_loans = pd.read_csv('./data/elite.csv')
 
 # %%
 X = accepted_loans.loc[:, accepted_loans.columns != 'loan_paid'].values
