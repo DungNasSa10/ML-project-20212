@@ -8,7 +8,7 @@
 
 > Directory Structure:
 
-- /data/: Contains all data sets (both original data set and the precessed one)
+- /data/: Contains all data sets (both original data set and the processed one)
 
 - /draft/: Contains drafting files as well as initial code
 
