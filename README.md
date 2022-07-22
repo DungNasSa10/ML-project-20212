@@ -23,11 +23,11 @@
 
 ## About Us
 
-Nguyen Ngoc Dung 
+Nguyen Ngoc Dung 20204905: EDA + Feature Engineering + Design code + experiment Logistic Regression and SVM
 
-Nguyen Huy Hai
+Nguyen Huy Hai 20200194: experiment adaBoost and Decision Tree
 
-Duong Vu Tuan Minh
+Duong Vu Tuan Minh 20209705: experiment RandomForest and xgBoost
 
-Nguyen Hai Long
+Nguyen Hai Long 20204920: experiment Perceptron and MLP
 
